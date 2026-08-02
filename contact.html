@@ -52,32 +52,32 @@
           <h2>Message Us</h2>
 
           <!-- This form is front-end only (no server). You can later connect it to email or a form service. -->
-          <form class="form" action="https://formspree.io/f/xbdddrob" method="POST">
+          <form class="form" id="contactForm">
             <label>
               Full name
               <input type="text" name="name" autocomplete="name" placeholder="Your name" required />
             </label>
-
+ 
             <label>
               Email
               <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
             </label>
-
+ 
             <label class="two">
               Check-in
               <input type="date" name="checkin" />
             </label>
-
+ 
             <label class="two">
               Check-out
               <input type="date" name="checkout" />
             </label>
-
+ 
             <label class="two">
               Guests
               <input type="number" name="guests" min="1" max="12" value="2" />
             </label>
-
+ 
             <label class="two">
               Room type
               <select name="room">
@@ -86,13 +86,58 @@
                 <option>Family Room</option>
               </select>
             </label>
-
+ 
             <label>
               Message
               <textarea name="message" rows="5" placeholder="Tell us your dates and any requests..."></textarea>
             </label>
-            <button class="btn primary" type="submit">Send</button>
+            <button class="btn primary" type="submit" id="contactSubmit">Send</button>
+            <p id="contactStatus" class="muted small" style="margin-top:8px;"></p>
           </form>
+ 
+          <script>
+            document.getElementById("contactForm").addEventListener("submit", async function(e) {
+              e.preventDefault();
+              const btn = document.getElementById("contactSubmit");
+              const status = document.getElementById("contactStatus");
+              const fd = new FormData(this);
+ 
+              btn.disabled = true;
+              btn.textContent = "Sending...";
+              status.textContent = "";
+ 
+              const data = {
+                name:     fd.get("name"),
+                email:    fd.get("email"),
+                checkin:  fd.get("checkin"),
+                checkout: fd.get("checkout"),
+                guests:   fd.get("guests"),
+                room:     fd.get("room"),
+                message:  fd.get("message")
+              };
+ 
+              try {
+                const resp = await fetch("https://script.google.com/macros/s/AKfycbw9SGAGkyjFSgpEso-gY7ZB-_JO7nL8ITNagCzvoEoxUG3e6UiA2rnfAiN2R75FqV2qPQ/exec", {
+                  method: "POST",
+                  body: JSON.stringify(data)
+                });
+                const result = await resp.json();
+                if (result.ok) {
+                  status.textContent = "✅ Message sent! We will reply soon.";
+                  status.style.color = "var(--accent)";
+                  this.reset();
+                } else {
+                  throw new Error("Server error");
+                }
+              } catch(err) {
+                status.textContent = "❌ Something went wrong. Please email us directly.";
+                status.style.color = "red";
+              }
+ 
+              btn.disabled = false;
+              btn.textContent = "Send";
+            });
+          </script>
         </section>
 
         <aside class="card">
