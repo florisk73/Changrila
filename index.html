@@ -1,12 +1,156 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=https://www.changrilaresort.com">
-  <link rel="canonical" href="https://www.changrilaresort.com">
-  <title>Redirecting...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ChangriLa — Home</title>
+
+  <meta name="description"
+        content="ChangriLa — a relaxing stay with beautiful views, great facilities, and comfortable rooms.">
+
+  <link rel="icon" type="image/png" href="images/logo/favicon48.png">
+  <link rel="apple-touch-icon" href="images/logo/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/main.js"></script>
 </head>
 <body>
-  <p>Redirecting to <a href="https://www.changrilaresort.com">changrilaresort.com</a>...</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-row">
+        <a class="brand" href="index.html">
+          <div class="logo-box">
+            <img src="images/logo/logo.png" alt="ChangriLa" class="logo">
+          </div>
+        </a>
+      </div>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"> 
+        ☰ <span class="nav-toggle-label">Menu</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <a class="nav-link active" href="index.html">Home</a>
+        <a class="nav-link" href="rooms.html">Rooms&Rates</a>
+        <a class="nav-link" href="facilities.html">Facilities</a>
+        <a class="nav-link" href="contact.html">Contact</a>
+        <!-- <a class="nav-link" href="booking.html">Book</a> -->
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-media" role="img" aria-label="Resort view">
+        <!-- Uses CSS background image; add images/hero.jpg -->
+      </div>
+
+    <div class="container">
+      <div class="hero-content">
+
+        <div class="hero-text">
+          <h1>Relax.. Recharge.. Enjoy the view.</h1>
+          <p class="lead">
+            Welcome to ChangriLa — comfortable rooms, great facilities, and a calm atmosphere for your getaway.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="rooms.html">View Rooms & Rates</a>
+            <a class="btn primary" href="contact.html">Check Availability</a>
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <img src="images/gallery/bungalows.jpg" alt="Bungalows" loading="lazy" />
+        </div>
+
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Highlights</h2>
+          <p>Everything you need for a comfortable stay.</p>
+        </div>
+
+        <div class="grid cards">
+          <article class="card">
+            <h3>Beautiful Location</h3>
+            <p>Great views and a peaceful atmosphere — perfect for couples and families.</p>
+          </article>
+          <article class="card">
+            <h3>Comfortable Rooms</h3>
+            <p>Clean, spacious rooms with air conditioning and modern amenities.</p>
+          </article>
+          <article class="card">
+            <h3>Facilities Included</h3>
+            <p>Pool, restaurant, Wi-Fi, and more — see the full list on the facilities page.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="section-head">
+          <h2>The Resort</h2>
+          <p>Click an image to view it larger.</p>
+        </div>
+
+        <div class="grid gallery" data-gallery>
+          <button class="thumb" type="button">
+            <figure>
+              <img src="images/gallery/zwembad.jpg" alt="Resort pool" loading="lazy" />
+              <figcaption>Swimming pool & Relax area</figcaption>
+            </figure>
+          </button>
+
+          <button class="thumb" type="button">
+            <figure>
+              <img src="images/gallery/bungalow5.jpg" alt="Bungalows" loading="lazy" />
+              <figcaption>Garden with Bungalows</figcaption>
+            </figure>
+          </button>
+
+          <button class="thumb" type="button">
+            <figure>
+              <img src="images/gallery/restaurant.jpg" alt="Restaurant area" loading="lazy" />
+              <figcaption>Restaurant, Bar and Reception</figcaption>
+            </figure>
+          </button>
+          
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="facilities.html">More pictures</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container cta">
+        <div>
+          <h2>Ready to plan your stay?</h2>
+          <p>Send us your dates and number of guests — we’ll reply with availability and the best rate.</p>
+        </div>
+        <a class="btn primary" href="contact.html">Contact Us</a>
+        <!-- <span class="source">or</span> -->
+        <!-- <a class="btn primary" href="booking.html">Book Now</a> -->
+      </div>
+    </section>
+  </main>
+
+<div id="site-footer"></div>
+
+<div class="modal" hidden data-modal>
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button class="modal-close" type="button" data-close-modal aria-label="Close">✕</button>
+    <button class="modal-nav prev" type="button" data-prev aria-label="Previous image">‹</button>
+    <img class="modal-image" alt="" />
+    <button class="modal-nav next" type="button" data-next aria-label="Next image">›</button>
+  </div>
+</div>
 </body>
 </html>

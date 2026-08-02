@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChangriLa — Contact</title>
+  <meta name="description" content="Contact ChangriLa for availability and bookings." />
+  
+  <link rel="icon" type="image/png" href="images/logo/favicon48.png">
+  <link rel="apple-touch-icon" href="images/logo/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-row">
+        <a class="brand" href="index.html">
+          <div class="logo-box">
+            <img src="images/logo/logo.png" alt="ChangriLa" class="logo">
+          </div>
+        </a>
+      </div>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"> 
+        ☰ <span class="nav-toggle-label">Menu</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="rooms.html">Rooms&Rates</a>
+        <a class="nav-link" href="facilities.html">Facilities</a>
+        <a class="nav-link active" href="contact.html">Contact</a>
+        <!-- <a class="nav-link" href="booking.html">Book</a> -->
+
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h1>Contact</h1>
+        <p>Send us a message — we’ll reply with availability and pricing.</p>
+      </div>
+
+      <div class="grid contact-grid">
+        <section class="card">
+          <h2>Message Us</h2>
+
+          <!-- This form is front-end only (no server). You can later connect it to email or a form service. -->
+          <form class="form" action="https://formspree.io/f/xbdddrob" method="POST">
+            <label>
+              Full name
+              <input type="text" name="name" autocomplete="name" placeholder="Your name" required />
+            </label>
+
+            <label>
+              Email
+              <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+            </label>
+
+            <label class="two">
+              Check-in
+              <input type="date" name="checkin" />
+            </label>
+
+            <label class="two">
+              Check-out
+              <input type="date" name="checkout" />
+            </label>
+
+            <label class="two">
+              Guests
+              <input type="number" name="guests" min="1" max="12" value="2" />
+            </label>
+
+            <label class="two">
+              Room type
+              <select name="room">
+                <option>Any</option>
+                <option>Deluxe Room</option>
+                <option>Family Room</option>
+              </select>
+            </label>
+
+            <label>
+              Message
+              <textarea name="message" rows="5" placeholder="Tell us your dates and any requests..."></textarea>
+            </label>
+            <button class="btn primary" type="submit">Send</button>
+          </form>
+        </section>
+
+        <aside class="card">
+          <h2>Resort Details</h2>
+          <ul class="list">
+            <li><strong>Phone:</strong> +31 6 21157577</li>
+            <li><strong>Email:</strong> florisk73@gmail.com</li>
+            <li><strong>Address:</strong> 37/7 Moo1 Bailan, Ko Chang District, Trat 23170, Thailand</li>
+          </ul>
+
+          <div class="map-placeholder" aria-label="Map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7367.236276636884!2d102.29956713049125!3d11.998179080958861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310414771d564b03%3A0x7f5738cd1bd9b858!2sLazy%20Republique!5e0!3m2!1snl!2snl!4v1776411398173!5m2!1snl!2snl"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <a class="btn" href="rooms.html">View Rooms & Rates</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+<div id="site-footer"></div>
+
+</body>
+</html>
