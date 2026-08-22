@@ -96,7 +96,7 @@ document.addEventListener("keydown", (e) => {
 
 // ------- Page swipe navigation -------
 // Order of pages to swipe through
-const PAGE_ORDER = ["index.html", "rooms.html", "facilities.html", "contact.html"];
+const PAGE_ORDER = ["index.html", "rooms.html", ".html", "contact.html"];
 
 function currentPage() {
   const path = window.location.pathname;
