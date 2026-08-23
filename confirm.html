@@ -78,34 +78,42 @@
     }
 
     async function doConfirm() {
-      const token = getToken();
-      if (!token) {
-        show("error-box");
-        return;
-      }
-
-      const btn = document.getElementById("confirmBtn");
-      btn.disabled = true;
-      btn.textContent = "Confirming...";
-
-      try {
-        const resp = await fetch(SCRIPT_URL + "?token=" + token, { method: "GET" });
-        const json = await resp.json();
-
-        if (json.already) {
-          show("already-box");
-        } else if (json.ok) {
-          show("success-box");
-        } else {
-          document.getElementById("error-msg").textContent = json.error || "Unknown error.";
-          show("error-box");
+        const token = getToken();
+        console.log("token: " + token);
+        
+        if (!token) {
+            show("error-box");
+            return;
         }
-      } catch(err) {
-        document.getElementById("error-msg").textContent = "Could not reach server. Please try again.";
-        show("error-box");
-      }
-    }
 
+        const btn = document.getElementById("confirmBtn");
+        btn.disabled = true;
+        btn.textContent = "Confirming...";
+
+        const url = SCRIPT_URL + "?token=" + token;
+        console.log("calling: " + url);
+
+        try {
+            const resp = await fetch(url, { method: "GET" });
+            console.log("response status: " + resp.status);
+            const text = await resp.text();
+            console.log("response text: " + text);
+            const json = JSON.parse(text);
+
+            if (json.already) {
+            show("already-box");
+            } else if (json.ok) {
+            show("success-box");
+            } else {
+            document.getElementById("error-msg").textContent = json.error || "Unknown error.";
+            show("error-box");
+            }
+        } catch(err) {
+            console.log("fetch error: " + err.message);
+            document.getElementById("error-msg").textContent = "Could not reach server: " + err.message;
+            show("error-box");
+        }
+    }
     // On page load — check token exists
     window.addEventListener("load", () => {
       const token = getToken();
