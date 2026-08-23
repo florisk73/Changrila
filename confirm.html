@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChangriLa — Confirm Booking Request</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="images/logo/favicon48.png">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-row">
+        <a class="brand" href="index.html">
+          <div class="logo-box">
+            <img src="images/logo/logo.png" alt="ChangriLa" class="logo">
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div id="loading">
+          <h1>One moment...</h1>
+          <p>Loading your confirmation page.</p>
+        </div>
+
+        <div id="confirm-box" style="display:none;">
+          <h1>Confirm your booking request</h1>
+          <p>Please click the button below to confirm your booking request at <strong>ChangriLa Resort</strong>.</p>
+          <div style="margin-top: 24px;">
+            <button class="btn primary" id="confirmBtn" onclick="doConfirm()">Yes, confirm my request</button>
+          </div>
+          <p class="muted small" style="margin-top: 24px;">If you did not make this request, simply close this page.</p>
+        </div>
+
+        <div id="success-box" style="display:none;">
+          <h1>Thank you!</h1>
+          <p>Your booking request has been confirmed.</p>
+          <p>We will check availability and get back to you as soon as possible.</p>
+          <p><em>ChangriLa Resort</em></p>
+          <a class="btn primary" href="index.html" style="margin-top:16px;">Back to website</a>
+        </div>
+
+        <div id="already-box" style="display:none;">
+          <h1>Already confirmed!</h1>
+          <p>Your request was already verified. We will be in touch soon.</p>
+          <a class="btn primary" href="index.html" style="margin-top:16px;">Back to website</a>
+        </div>
+
+        <div id="error-box" style="display:none;">
+          <h1>Something went wrong</h1>
+          <p id="error-msg">The link may have expired or is invalid.</p>
+          <p>Please <a href="contact.html">contact us</a> directly.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwVzBTNJLpgDiaPaAtVWXx7oJ90Iv5nfCD2rwJB3dLAYXVd6y4fH1ONtPUXAwfp7V2g/exec";
+
+    function show(id) {
+      ["loading", "confirm-box", "success-box", "already-box", "error-box"]
+        .forEach(b => document.getElementById(b).style.display = "none");
+      document.getElementById(id).style.display = "block";
+    }
+
+    function getToken() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("token");
+    }
+
+    async function doConfirm() {
+      const token = getToken();
+      if (!token) {
+        show("error-box");
+        return;
+      }
+
+      const btn = document.getElementById("confirmBtn");
+      btn.disabled = true;
+      btn.textContent = "Confirming...";
+
+      try {
+        const resp = await fetch(SCRIPT_URL + "?token=" + token, { method: "GET" });
+        const json = await resp.json();
+
+        if (json.already) {
+          show("already-box");
+        } else if (json.ok) {
+          show("success-box");
+        } else {
+          document.getElementById("error-msg").textContent = json.error || "Unknown error.";
+          show("error-box");
+        }
+      } catch(err) {
+        document.getElementById("error-msg").textContent = "Could not reach server. Please try again.";
+        show("error-box");
+      }
+    }
+
+    // On page load — check token exists
+    window.addEventListener("load", () => {
+      const token = getToken();
+      if (!token) {
+        show("error-box");
+      } else {
+        show("confirm-box");
+      }
+    });
+  </script>
+
+  <script defer src="js/main.js"></script>
+</body>
+</html>
