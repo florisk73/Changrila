@@ -24,6 +24,7 @@
   <main id="main" class="section">
     <div class="container">
       <div class="section-head">
+
         <div id="loading">
           <h1>One moment...</h1>
           <p>Loading your confirmation page.</p>
@@ -57,6 +58,7 @@
           <p id="error-msg">The link may have expired or is invalid.</p>
           <p>Please <a href="contact.html">contact us</a> directly.</p>
         </div>
+
       </div>
     </div>
   </main>
@@ -67,63 +69,51 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwVzBTNJLpgDiaPaAtVWXx7oJ90Iv5nfCD2rwJB3dLAYXVd6y4fH1ONtPUXAwfp7V2g/exec";
 
     function show(id) {
-      ["loading", "confirm-box", "success-box", "already-box", "error-box"]
+      ["loading","confirm-box","success-box","already-box","error-box"]
         .forEach(b => document.getElementById(b).style.display = "none");
       document.getElementById(id).style.display = "block";
     }
 
     function getToken() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("token");
+      return new URLSearchParams(window.location.search).get("token");
     }
 
     async function doConfirm() {
-        const token = getToken();
-        console.log("token: " + token);
-        
-        if (!token) {
-            show("error-box");
-            return;
+      const token = getToken();
+      if (!token) { show("error-box"); return; }
+
+      const btn = document.getElementById("confirmBtn");
+      btn.disabled = true;
+      btn.textContent = "Confirming...";
+
+      try {
+        const resp = await fetch(SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ confirmToken: token })
+        });
+
+        const json = await resp.json();
+        console.log("response: " + JSON.stringify(json));
+
+        if (json.already) {
+          show("already-box");
+        } else if (json.ok) {
+          show("success-box");
+        } else {
+          document.getElementById("error-msg").textContent = json.error || "Unknown error.";
+          show("error-box");
         }
-
-        const btn = document.getElementById("confirmBtn");
-        btn.disabled = true;
-        btn.textContent = "Confirming...";
-
-        const url = SCRIPT_URL + "?token=" + token;
-        console.log("calling: " + url);
-
-        try {
-            const resp = await fetch(SCRIPT_URL, {
-            method: "POST",
-            body: JSON.stringify({ confirmToken: token })
-            });            console.log("response status: " + resp.status);
-            const text = await resp.text();
-            console.log("response text: " + text);
-            const json = JSON.parse(text);
-
-            if (json.already) {
-            show("already-box");
-            } else if (json.ok) {
-            show("success-box");
-            } else {
-            document.getElementById("error-msg").textContent = json.error || "Unknown error.";
-            show("error-box");
-            }
-        } catch(err) {
-            console.log("fetch error: " + err.message);
-            document.getElementById("error-msg").textContent = "Could not reach server: " + err.message;
-            show("error-box");
-        }
+      } catch(err) {
+        console.log("fetch error: " + err.message);
+        document.getElementById("error-msg").textContent = "Could not reach server: " + err.message;
+        show("error-box");
+      }
     }
-    // On page load — check token exists
+
     window.addEventListener("load", () => {
       const token = getToken();
-      if (!token) {
-        show("error-box");
-      } else {
-        show("confirm-box");
-      }
+      if (!token) { show("error-box"); } else { show("confirm-box"); }
     });
   </script>
 
