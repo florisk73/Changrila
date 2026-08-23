@@ -94,8 +94,10 @@
         console.log("calling: " + url);
 
         try {
-            const resp = await fetch(url, { method: "GET" });
-            console.log("response status: " + resp.status);
+            const resp = await fetch(SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify({ confirmToken: token })
+            });            console.log("response status: " + resp.status);
             const text = await resp.text();
             console.log("response text: " + text);
             const json = JSON.parse(text);
