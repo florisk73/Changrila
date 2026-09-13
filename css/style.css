@@ -35,7 +35,7 @@ img{ max-width: 100%; display: block; }
 
 .container{
   width: min(var(--max), calc(100% - 2*var(--pad)));
-  margin: 24px auto;
+  margin: 12px auto;
 
   /* 👇 SOLID BASE COLOR FIRST */
   background: rgba(30, 40, 20, 0.75);  /* olive/dark tint */
@@ -271,7 +271,7 @@ img{ max-width: 100%; display: block; }
 }
 .hero-actions{
   display: flex;
-  gap: 12px;
+  gap: 0px;
   flex-wrap: wrap; 
   margin: 10px;
 }
@@ -607,7 +607,6 @@ input[type="date"]:focus{
 /* Footer */
 .site-footer{
   border-top: 1px solid var(--border);
-  padding: 20px 0;
   background: rgba(0,0,0,0.15);
 }
 .footer-inner{
